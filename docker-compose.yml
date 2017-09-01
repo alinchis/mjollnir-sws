@@ -1,22 +1,32 @@
-version: '2'
+version: '3'
 
 services:
 
-  escher:
-    image: alinchis/mjollnir-escher
+  control-server:
+    image: alinchis/docker-control-server
     volumes:
-      - ~/Git/mjollnir:/root/Git/mjollnir
-      - ~/Git/Escher.jl/assets:/root/.julia/v0.4/Escher/assets
-      - ~/Git/Escher.jl/src/library:/root/.julia/v0.4/Escher/src/library
-    working_dir: /root/Git/mjollnir/code
-    command: escher --serve
+      - ~/Git/control-server:/root/Git/control-server
+    working_dir: /root/Git/control-server
+    command: npm start
+    depends_on:
+      - "sql-server"
     ports:
-      - "5555:5555"
+      - "3030:3030"
 
-  docker:
-    image: docker
+  display-server:
+    image: alinchis/docker-display-server
     volumes:
-      - /var/run/docker.sock:/var/run/docker.sock
-    expose:
-      - "4444"
-    command: nc -lvp 4444 -e docker
+      - ~/Git/spa:/root/Git/display-server
+    working_dir: /root/Git/display-server
+    command: npm run dev
+    ports:
+      - "8888:8888"
+    depends_on:
+      - "control-server"
+
+  sql-server:
+    image: alinchis/docker-sql-server
+    volumes:
+      - ~/Git/docker-data/PostgreSQL/data:/var/lib/postgresql/data
+    ports:
+      - "5433:5432"

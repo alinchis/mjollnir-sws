@@ -16,7 +16,7 @@ services:
   display-server:
     image: alinchis/docker-display-server
     volumes:
-      - ~/Git/spa:/root/Git/display-server
+      - ~/Git/display-server:/root/Git/display-server
     working_dir: /root/Git/display-server
     command: npm run dev
     ports:

@@ -1,2 +1,2 @@
-# mjollnir-sws
-A modular tool for working with spatial data
+# patj-manager
+A modular tool for managing and delivering patj data.

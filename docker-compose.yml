@@ -28,6 +28,6 @@ services:
     image: alinchis/docker-sql-server
     restart: always
     volumes:
-      - "~/Git/PATJ-Manager/patj-docker-data/PostgreSQL/data:/var/lib/postgresql/data"
+      - "~/Git/PATJ-Manager/patj-docker-data/PostgreSQL:/var/lib/postgresql"
     ports:
       - "5555:5432"
